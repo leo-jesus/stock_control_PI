@@ -3,6 +3,7 @@ from django.db import models
 from stock_control.core.models import TimeStampedModel
 from stock_control.produto.models import Produto
 from django.urls import reverse_lazy
+from .managers import EstoqueEntradaManager, EstoqueSaidaManager
 
 
 MOVIMENTO = (
@@ -29,11 +30,6 @@ class Estoque(TimeStampedModel):
         return str(self.nf).zfill(3)
 
 
-class EstoqueEntradaManager(models.Manager):
-    def get_queryset(self):
-        return super(EstoqueEntradaManager, self).get_queryset().filter(movimento='e')
-
-
 class EstoqueEntrada(Estoque):
     objects = EstoqueEntradaManager()
 
@@ -41,11 +37,6 @@ class EstoqueEntrada(Estoque):
         proxy = True
         verbose_name = 'estoque entrada'
         verbose_name_plural = 'estoque entrada'
-
-
-class EstoqueSaidaManager(models.Manager):
-    def get_queryset(self):
-        return super(EstoqueSaidaManager, self).get_queryset().filter(movimento='s')
 
 
 class EstoqueSaida(Estoque):
