@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% block content %}
-<a href="{% url 'estoque:estoque_saida_list' %}">Voltar</a>
+<a href="{% url url_list %}">Voltar</a>
 
 <h1>{{ object }}</h1>
 
@@ -16,7 +16,7 @@
       </tr>
       <tr>
         <th class="text-right">Funcionário</th>
-        <td>{{object.funcionario.first_name}}</td>
+        <td>{{object.funcionario}}</td>
       </tr>
     </tbody>
   </table>
