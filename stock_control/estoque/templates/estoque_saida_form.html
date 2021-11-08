@@ -2,6 +2,7 @@
 {% load widget_tweaks %}
 {% load bootstrap %}
 {% block content %}
+{% load static %}
 <a href="{% url 'estoque:estoque_saida_list' %}">Voltar</a>
 <h1>Saída do Estoque</h1>
 <div class="row">
@@ -70,7 +71,7 @@
 {% endblock content %}
 
 {% block js %}
-<script src="{%static 'js/estoque_saida'%}"></script>
+<script src="{%static 'js/estoque_saida.js'%}"></script>
 <script type="text/html" id="item-estoque">
   <div id="item-__prefix__" class="form-group">
     {{formset.empty_form|bootstrap}}
