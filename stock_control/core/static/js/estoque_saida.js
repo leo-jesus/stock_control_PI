@@ -3,6 +3,12 @@ $(document).ready(function () {
   $("#id_estoque-0-produto").addClass("clProduto");
   $("#id_estoque-0-quantidade").addClass("clQuantidade");
 
+  $("#id_estoque-0-saldo").prop("type", "hidden");
+
+  $('label[for="id_estoque-0-saldo"]').append(
+    '<span id ="id_estoque-0-saldo-span" class ="lead" style="padding-left: 15px;"></span>',
+  );
+
   $("#add-item").click(function (e) {
     e.preventDefault();
     var count = $("#estoque").children().length;
@@ -11,6 +17,8 @@ $(document).ready(function () {
     $("div#estoque").append(compiledTemplate);
     //update form count
     $("#id_estoque-TOTAL_FORMS").attr("value", count + 1);
+
+    $("#id_estoque-" + count + "-saldo").prop("type", "hidden");
 
     //some animate to scroll to view our new form
 
@@ -26,19 +34,20 @@ $(document).ready(function () {
   });
 });
 
-let estoque, saldo, campo, quantidade;
+let estoque, saldo, campo, campo2, quantidade;
 
 $(document).on("change", ".clProduto", function () {
   let pk = $(this).val();
   let url = "/produto/" + pk + "/json/";
+  let self = $(this);
 
   $.ajax({
     url: url,
     type: "GET",
+
     success: function (response) {
       estoque = response.data[0].estoque;
-      console.log(estoque);
-      campo = this.attr("id").replace("produto", "quantidade");
+      campo = self.attr("id").replace("produto", "quantidade");
       //remove the value of quantity field
       $("#" + campo).val("");
     },
@@ -50,5 +59,14 @@ $(document).on("change", ".clQuantidade", function () {
   quantidade = $(this).val();
   saldo = Number(estoque) - Number(quantidade);
   campo = $(this).attr("id").replace("quantidade", "saldo");
+
+  if (saldo < 0) {
+    alert("O Saldo não pode ser negativo ou vazio");
+    $("#" + campo).val("");
+    return;
+  }
+  $("#" + campo).prop("type", "hidden");
   $("#" + campo).val(saldo);
+  campo2 = $(this).attr("id").replace("quantidade", "saldo-span");
+  $("#" + campo2).text(saldo);
 });

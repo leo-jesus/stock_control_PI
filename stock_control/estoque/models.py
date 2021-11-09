@@ -2,7 +2,6 @@ from django.contrib.auth.models import User
 from django.db import models
 from stock_control.core.models import TimeStampedModel
 from stock_control.produto.models import Produto
-from django.urls import reverse_lazy
 from .managers import EstoqueEntradaManager, EstoqueSaidaManager
 
 
@@ -54,7 +53,7 @@ class EstoqueItens(models.Model):
         Estoque, on_delete=models.CASCADE, related_name='estoques')
     produto = models.ForeignKey(Produto, on_delete=models.CASCADE)
     quantidade = models.PositiveBigIntegerField()
-    saldo = models.PositiveBigIntegerField()
+    saldo = models.PositiveBigIntegerField(blank=True)
 
     class Meta:
         ordering = ('pk',)

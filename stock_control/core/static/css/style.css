@@ -16,3 +16,7 @@ span.required:after {
 .form-control {
   margin: 10px;
 }
+
+tr td.text-center.abaixo-minimo {
+  background-color: rgba(174, 6, 6, 0.659);
+}
