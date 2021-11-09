@@ -10,6 +10,8 @@ class Produto(models.Model):
     estoque = models.IntegerField('estoque_atual')
     estoque_minimo = models.PositiveBigIntegerField(
         'estoque minimo', default=0)
+    valor_estoque = models.DecimalField(
+        'valor_estoque', max_digits=7, decimal_places=2, default=0)
 
     class Meta:
         ordering = ('produto',)

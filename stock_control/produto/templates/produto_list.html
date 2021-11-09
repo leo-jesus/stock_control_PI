@@ -19,6 +19,7 @@
         <th>Preço</th>
         <th class="text-center">Estoque</th>
         <th class="text-center">Estoque mínimo</th>
+        <th class="text-center">Valor do Estoque</th>
       </tr>
     </thead>
     <tbody>
@@ -36,12 +37,13 @@
           <a href="{{ object.get_absolute_url }}">{{ object.produto }}</a>
         </td>
         <td>R$ <span class="pull-right">{{ object.preco }}</span></td>
-         {% if object.estoque < object.estoque_minimo   %}
+        {% if object.estoque <= object.estoque_minimo %}
         <td class="text-center abaixo-minimo">{{ object.estoque }}</td>
-         {% else %}
+        {% else %}
         <td class="text-center">{{ object.estoque }}</td>
-         {% endif %}
+        {% endif %}
         <td class="text-center">{{ object.estoque_minimo }}</td>
+        <td class="text-center">{{ object.valor_estoque }}</td>
       </tr>
       {% endfor %}
     </tbody>

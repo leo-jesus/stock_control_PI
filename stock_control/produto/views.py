@@ -9,6 +9,9 @@ def produto_list(request):
     template_name = 'produto_list.html'
     objects = Produto.objects.all()
     context = {'object_list': objects}
+    for item in objects:
+        item.valor_estoque = item.preco*item.estoque
+        item.save()
     return render(request, template_name, context)
 
 

@@ -11,6 +11,7 @@ class ProdutoAdmin(admin.ModelAdmin):
         'preco',
         'estoque',
         'estoque_minimo',
+        'valor_estoque',
     )
     search_fields = ('produto',)
     list_filter = ('importado',)
