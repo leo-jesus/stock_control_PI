@@ -4,7 +4,7 @@ from django.shortcuts import render, resolve_url
 from django.views.generic.detail import DetailView
 from .models import Estoque, Produto
 from django.views.generic import ListView
-
+from django.contrib.auth.decorators import login_required
 from stock_control.estoque.forms import EstoqueForm, EstoqueItensForm
 from .models import EstoqueEntrada, EstoqueSaida, EstoqueItens
 
@@ -49,7 +49,8 @@ def estoque_add(request, template_name, movimento, url):
         formset = item_estoque_formset(
             request.POST, instance=estoque_form, prefix='estoque')
         if form.is_valid() and formset.is_valid():
-            form = form.save()
+            form = form.save(commit=False)
+            form.funcionario = request.user
             form.movimento = movimento
             form.save()
             formset.save()
@@ -62,10 +63,11 @@ def estoque_add(request, template_name, movimento, url):
         return context
 
 
+@login_required()
 def estoque_entrada_add(request):
     template_name = 'estoque_entrada_form.html'
     movimento = 'e'
-    url = 'estoque:estoque_entrada_detail'
+    url = 'estoque:estoque_detail'
     context = estoque_add(request, template_name, movimento, url)
     if context.get('pk'):
         return HttpResponseRedirect(resolve_url(url, context.get('pk')))
@@ -83,10 +85,11 @@ class EstoqueSaidaList(ListView):
         return context
 
 
+@login_required()
 def estoque_saida_add(request):
     template_name = 'estoque_saida_form.html'
     movimento = 's'
-    url = 'estoque:estoque_saida_detail'
+    url = 'estoque:estoque_detail'
     context = estoque_add(request, template_name, movimento, url)
     if context.get('pk'):
         return HttpResponseRedirect(resolve_url(url, context.get('pk')))
