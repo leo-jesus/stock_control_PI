@@ -1,4 +1,5 @@
 {% extends "base.html" %} {% block content %}
+
 <div class="page-header">
   <h2>Lista de Produtos</h2>
   <span class="pull-right">
@@ -9,6 +10,18 @@
     >
   </span>
   {% if object_list %}
+  <div class="col-sm-6 buscar">
+    <form action="." method="GET" class="form-inline">
+      <input
+        type="text"
+        id="search"
+        class="form-control"
+        name="search"
+        placeholder="Busque pelo produto"
+      />
+      <input type="submit" value="Buscar" class="btn btn-primary" />
+    </form>
+  </div>
 
   <table class="table table-striped">
     <thead>

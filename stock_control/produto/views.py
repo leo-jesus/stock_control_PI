@@ -8,10 +8,13 @@ from .models import Produto
 def produto_list(request):
     template_name = 'produto_list.html'
     objects = Produto.objects.all()
-    context = {'object_list': objects}
+    search = request.GET.get('search')
     for item in objects:
         item.valor_estoque = item.preco*item.estoque
         item.save()
+    if search:
+        objects = objects.filter(produto__icontains=search)
+    context = {'object_list': objects}
     return render(request, template_name, context)
 
 

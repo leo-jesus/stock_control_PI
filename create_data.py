@@ -2,14 +2,14 @@ import os
 import string
 from random import choice, randint, random
 
-import django
-django.setup()
-
-from stock_control.produto.models import Produto
-
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'stock_control.settings')
 
+import django
+django.setup()
+
+
+from stock_control.produto.models import Produto
 
 class Utils:
     @staticmethod
