@@ -13,6 +13,11 @@
   color: red;
 }
 
+.container-img img {
+  max-width: 100px;
+  max-height: 50px;
+}
+
 span.required:after {
   content: "*";
   color: red;
